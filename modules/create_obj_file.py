@@ -1,7 +1,7 @@
 import sys
-def create(fin, fout):
-    #fout = open("obj_files/"+sys.argv[1].split('/')[1].split('.')[0]+".obj", "w")
-
+def create(fin_path, fout_path):
+    fout = open(fout_path+".obj", "w")
+    fin = open(fin_path,"r")
     num_verts = 0
     num_edges = 0
     num_tris = 0
@@ -30,7 +30,7 @@ def create(fin, fout):
           if(x != ''):
              edge.append(x)
        print(edge)
-       line_out = "l " + str(int(edge[0])+1) + " " + str(int(edge[1])+1) + '\n'
+       line_out = "l " + str(int(edge[0])) + " " + str(int(edge[1])) + '\n'
        fout.write(line_out)
    
     print(num_tris)
@@ -41,7 +41,7 @@ def create(fin, fout):
           if(x != ''):
              tri.append(x)
        print(tri)
-       line_out = "f " + str(int(tri[0])+1) + " " + str(int(tri[1])+1) + " " + str(int(tri[2])+1) + '\n'
+       line_out = "f " + str(int(tri[0])) + " " + str(int(tri[1])) + " " + str(int(tri[2])) + '\n'
        fout.write(line_out)
    
     for i in range(0, int(num_tets)):
@@ -51,13 +51,13 @@ def create(fin, fout):
           if(x != ''):
              tet.append(x)
        print(tet)
-       line_out = "f " + str(int(tet[0])+1) + " " + str(int(tet[1])+1) + " " + str(int(tet[2])+1) + '\n'
+       line_out = "f " + str(int(tet[0])) + " " + str(int(tet[1])) + " " + str(int(tet[2])) + '\n'
        fout.write(line_out)
-       line_out = "f " + str(int(tet[1])+1) + " " + str(int(tet[2])+1) + " " + str(int(tet[3])+1) + '\n'
+       line_out = "f " + str(int(tet[1])) + " " + str(int(tet[2])) + " " + str(int(tet[3])) + '\n'
        fout.write(line_out)
-       line_out = "f " + str(int(tet[2])+1) + " " + str(int(tet[3])+1) + " " + str(int(tet[0])+1) + '\n'
+       line_out = "f " + str(int(tet[2])) + " " + str(int(tet[3])) + " " + str(int(tet[0])) + '\n'
        fout.write(line_out)
-       line_out = "f " + str(int(tet[3])+1) + " " + str(int(tet[0])+1) + " " + str(int(tet[1])+1) + '\n'
+       line_out = "f " + str(int(tet[3])) + " " + str(int(tet[0])) + " " + str(int(tet[1])) + '\n'
        fout.write(line_out)
    
 

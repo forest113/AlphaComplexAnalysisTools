@@ -11,6 +11,8 @@ while(choice != 5):
     print('4: querry orthoradius')
     print('5: exit')
     choice = int(input('enter option:'))
+    if(choice == 5):
+        break
     alphaComplex_file1 = input("enter the path to your alphacomplex file")
     
     if(choice == 1):
@@ -24,12 +26,13 @@ while(choice != 5):
         
     if(choice == 2):
         obj_file_path = input("where would you like to store the obj file?:")
-        create_obj_file.create(alphaComplex_file1, obj_file_path)
+        create(alphaComplex_file1, obj_file_path)
         print('done! open with meshlab->import mesh->your obj file')
         
     if(choice == 3):
         alphaComplex_file2 = input("which alphacomplex would you like to compare against?:")
-        ac_cpu_gpu_cmp.compare(alphaComplex_file1, alphaComplex_file2)
+        op_path = input("where do you want to store output files?:")
+        compare(alphaComplex_file2, alphaComplex_file1,op_path)
         
     if(choice == 4):
         simplices = {}

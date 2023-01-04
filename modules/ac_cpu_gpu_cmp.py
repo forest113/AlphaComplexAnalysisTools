@@ -67,15 +67,18 @@ def set_diff(A, B, k):
                 if(A[i] == B[j]): 
                     found = True
         if(found == False):
+            print("eeeeeeeeeeeeeeeeeeeeeeeeeeee", A[i])
+            for j in range(range_low, range_high):
+                print("aaaa",B[j])
             diff.append(A[i])
     return diff
 
 
-def compare(AC_op_file, pAC_op_file):    
+def compare(AC_op_file, pAC_op_file, op_path):    
 #AC_op_file = open(sys.argv[1], 'r')
 #pAC_op_file = open(sys.argv[2], 'r')
-    extra_file = open("cmp/extra.obj","w")
-    missing_file = open("cmp/missing.obj","w")
+    extra_file = open(op_path+"extra.obj","w")
+    missing_file = open(op_path+"missing.obj","w")
 	
 
     #alpha complex output
@@ -114,13 +117,14 @@ def compare(AC_op_file, pAC_op_file):
     AC_op['edges'] = sorted(AC_op['edges'])
     AC_op['faces'] = sorted(AC_op['faces'])
     AC_op['tets'] = sorted(AC_op['tets'])
-
+    
     print('recomputing indices for pac edges')
     pAC_op['new_edges'] = sorted(recompute_indices(pAC_op['edges']))
     print('recomputing indices for pac tris')
     pAC_op['new_faces'] = sorted(recompute_indices(pAC_op['faces']))
     print('recomputing indices for pac tets')
     pAC_op['new_tets'] = sorted(recompute_indices(pAC_op['tets']))
+    
     #Convert lists into tuples so that verts are hashable
     extra_edges = set_diff(pAC_op['new_edges'], AC_op['edges'],MAX_DIFF_RANGE)
     missing_edges = set_diff(AC_op['edges'],pAC_op['new_edges'],MAX_DIFF_RANGE)
