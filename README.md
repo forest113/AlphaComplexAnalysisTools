@@ -1,4 +1,4 @@
-# AlphaComplexHelpers
+# AlphaComplexAnalysisTools
 Tools to help compare and debug different alpahcomplex outputs
 Algorithms to compute Delaunay triangulations and Alpha shapes often differ in their outputs to some degree. When it comes to large input sizes as is the case with biomolecules, analyzing, debugging and comparing these output triangulations requires some tools and automation.This repository contains some tools which can help in this process.
 
