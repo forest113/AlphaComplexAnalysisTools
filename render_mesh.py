@@ -1,4 +1,4 @@
-
+#modified code from https://github.com/Zehina/3D-.obj-File-Viewer
 import glfw
 from OpenGL.GL import *
 from OpenGL.GLU import *
@@ -13,6 +13,7 @@ faces = None
 dropped = 0
 modeFlag = 0
 distanceFromOrigin = 45
+
 def dropCallback(window, paths):
     global vertices, normals, faces, dropped, gVertexArraySeparate
     numberOfFacesWith3Vertices = 0
@@ -37,19 +38,8 @@ def dropCallback(window, paths):
         else:
             normals = convertVertices(vnStrings)
         faces = [x.strip('f') for x in lines if x.startswith('f')]
-    for face in faces: 
-        if len(face.split()) == 3:
-            numberOfFacesWith3Vertices +=1
-        elif len(face.split()) == 4:
-            numberOfFacesWith4Vertices +=1
-        else:
-            numberOfFacesWithMoreThan4Vertices +=1
-    print("File name:",fileName,"\nTotal number of faces:", len(faces),
-        "\nNumber of faces with 3 vertices:",numberOfFacesWith3Vertices, 
-        "\nNumber of faces with 4 vertices:",numberOfFacesWith4Vertices,
-        "\nNumber of faces with more than 4 vertices:",numberOfFacesWithMoreThan4Vertices)
-    if(numberOfFacesWith4Vertices > 0 or numberOfFacesWithMoreThan4Vertices > 0):
-        faces = triangulate()
+
+
     gVertexArraySeparate = createVertexArraySeparate()
     ##########EMPTYING USELESS VARIABLES FOR MEMORY MANAGEMENT##########
     faces = []
@@ -80,20 +70,7 @@ def convertVertices(verticesStrings):
             j+=1
         i+=1
     return v
-def triangulate():
-    facesList = []
-    nPolygons = []
-    for face in faces:
-        if(len(face.split())>=4):
-            nPolygons.append(face)
-        else:
-            facesList.append(face)
-    for face in nPolygons:
-        for i in range(1, len(face.split())-1):
-            seq = [str(face.split()[0]), str(face.split()[i]), str(face.split()[i+1])]
-            string = ' '.join(seq)
-            facesList.append(string)
-    return facesList
+
 def createVertexArraySeparate():
     varr = np.zeros((len(faces)*6,3), 'float32')
     i=0
@@ -121,6 +98,7 @@ def createVertexArraySeparate():
 
 def render(ang):
     global gCamAng, gCamHeight, distanceFromOrigin, dropped
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
 
     glEnable(GL_DEPTH_TEST)
@@ -212,13 +190,7 @@ def key_callback(window, key, scancode, action, mods):
         elif key==glfw.KEY_W:
             if gCamHeight > -9:
                 gCamHeight += -.1
-        elif key==glfw.KEY_Z:
-            if modeFlag == 0:
-                glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
-                modeFlag = 1
-            else:
-                glPolygonMode(GL_FRONT_AND_BACK,GL_FILL)
-                modeFlag = 0
+        
         elif key==glfw.KEY_A:
             if distanceFromOrigin > 0:
                 distanceFromOrigin -= 1

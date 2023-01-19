@@ -28,18 +28,15 @@ def get_tri_orthoradius(verts, simplice):
     a13 = a1.z - a2.z
     b1 = (a1.x * a1.x - a2.x * a2.x) + (a1.y * a1.y - a2.y * a2.y) + (a1.z * a1.z - a2.z * a2.z) - (a1.radius * a1.radius) + (a2.radius * a2.radius)
     b1 /= 2
-    #Find equation of plane of intersection of atoms a2 and a3
     a21 = a2.x - a3.x
     a22 = a2.y - a3.y
     a23 = a2.z - a3.z
-    b2 = (a2.x * a2.x - a3.x * a3.x) + (a2.y * a2.y - a3.y * a3.y)+ (a2.z * a2.z - a3.z * a3.z) - (a2.radius * a2.radius)+ (a3.radius * a3.radius)
+    b2 = (a2.x * a2.x - a3.x * a3.x) + (a2.y * a2.y - a3.y * a3.y) + (a2.z * a2.z - a3.z * a3.z) - (a2.radius * a2.radius) + (a3.radius * a3.radius)
     b2 /= 2
-    # Find equation of plane containing centers of atoms a1, a2 and a3
     a31 = (a2.y - a1.y) * (a3.z - a1.z) - (a3.y - a1.y) * (a2.z - a1.z)
     a32 = (a2.z - a1.z) * (a3.x - a1.x) - (a3.z - a1.z) * (a2.x - a1.x)
     a33 = (a2.x - a1.x) * (a3.y - a1.y) - (a3.x - a1.x) * (a2.y - a1.y)
     b3 = a31 * a1.x + a32 * a1.y + a33 * a1.z
-    # Use Cramer's rule to find intersection point of these three planes
     D = a11 * a22 * a33 + a12 * a23 * a31 + a13 * a21 * a32 - a13 * a22 * a31 - a12 * a21 * a33 - a11 * a23 * a32
     Dx = b1 * a22 * a33 + a12 * a23 * b3 + a13 * b2 * a32 - a13 * a22 * b3 - a12 * b2 * a33 - b1 * a23 * a32
     Dy = a11 * b2 * a33 + b1 * a23 * a31 + a13 * a21 * b3 - a13 * b2 * a31 - b1 * a21 * a33 - a11 * a23 * b3
